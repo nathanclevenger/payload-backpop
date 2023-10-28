@@ -4,7 +4,7 @@ import Users from "./collections/Users";
 import Foo from "./collections/Foo.collection";
 import Bar from "./collections/Bar.collection";
 import Baz from "./collections/Baz.collection";
-import BackpopulatedRelationshipsPlugin from "./backpopulated-relationship.plugin";
+import BackpopulatedRelationshipsPlugin from "./plugin/index.js";
 
 const config = {
   serverURL: "http://localhost:3000",

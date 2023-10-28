@@ -14,18 +14,18 @@ export const backpopulatePolymorphicCleanupHookFactory = ({
   target_field,
   target_slug,
 }: BackpopulateCleanupHookArgs): AfterDeleteHook => {
-  const cleanupHook = async ({ req, id, doc }) => {
+  const cleanupHook = async ({ req, id, doc }: any) => {
     // query all documents which have a relationship to this document
     let value = doc[source_field] ?? [];
 
     const affected_slugs: string[] = Array.from(
-      new Set(value.map((el) => el.relationTo))
+      new Set(value.map((el: any) => el.relationTo))
     );
 
     for (const slug of affected_slugs) {
       for (const affected_document_id of value
-        .filter((el) => el.relationTo === slug)
-        .map((el) => el.value)) {
+        .filter((el: any) => el.relationTo === slug)
+        .map((el: any) => el.value)) {
         // we hold a reference to these documents, just remove our own id and we're good
         // we still need to query the documents in order to retain all other back references
         const affected_doc = await payload.findByID({
@@ -41,7 +41,7 @@ export const backpopulatePolymorphicCleanupHookFactory = ({
           collection: slug,
           id: affected_document_id,
           data: {
-            [target_field]: prev_references.filter((el) => el !== doc.id),
+            [target_field]: prev_references.filter((el: any) => el !== doc.id),
           },
           overrideAccess: true,
           depth: 0,
